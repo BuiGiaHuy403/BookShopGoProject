@@ -1,0 +1,34 @@
+version: '3.9'
+services:
+  postgres-db:
+    container_name: postgres-db
+    image: postgres:latest
+    restart: always
+    volumes:
+      - ./initdb/bookshopfinal_dump.sql:/docker-entrypoint-initdb.d/bookshopfinal_dump.sql
+      - dbinit:/var/lib/postgresql/data  # Persist database data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=BookShopFinal
+    ports:
+      - 5432:5432
+    networks:
+      - bookshop-network
+  bookshop-app:
+    container_name: bookshop-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 7000:6969
+    networks:
+      - bookshop-network
+    depends_on:
+      - postgres-db
+volumes:
+  dbinit:
+
+networks:
+  bookshop-network:
+    driver: bridge

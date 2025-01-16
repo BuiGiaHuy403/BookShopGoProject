@@ -1,0 +1,40 @@
+-- Clear existing data
+BEGIN;
+
+TRUNCATE TABLE
+    public.book_authors,
+    public.stocks,
+    public.books,
+    public.authors
+RESTART IDENTITY CASCADE;
+
+-- Insert sample authors
+INSERT INTO public.authors (author_name, status) VALUES
+    ('J.K. Rowling', false),
+    ('George Orwell', false),
+    ('J.R.R. Tolkien', false),
+    ('Agatha Christie', false), -- Not in the test data but part of previous schema
+    ('Dan Brown', false);
+
+-- Insert sample books
+INSERT INTO public.books (book_name, description, price, genre, status) VALUES
+    ('Harry Potter and the Sorcerer s Stone', '', 19.99, 'Fantasy', false),
+    ('1984', '', 14.99, 'Dystopian', false),
+    ('The Hobbit', '', 15.99, 'Fantasy', false),
+    ('The Da Vinci Code', '', 18.99, 'Thriller', false);
+
+-- Insert relationships between books and authors
+INSERT INTO public.book_authors (book_id, author_id) VALUES
+    (1, 1), -- Harry Potter by J.K. Rowling
+    (2, 2), -- 1984 by George Orwell
+    (3, 3), -- The Hobbit by J.R.R. Tolkien
+    (4, 5); -- The Da Vinci Code by Dan Brown
+
+-- Insert stock data for books with default current time
+INSERT INTO public.stocks (book_id, quantity) VALUES
+    (1, 50), -- 50 copies of Harry Potter
+    (2, 30), -- 30 copies of 1984
+    (3, 40), -- 40 copies of The Hobbit
+    (4, 60); -- 60 copies of The Da Vinci Code
+
+COMMIT;

@@ -19,13 +19,7 @@ pipeline {
             }
         }
 
-        stage('Run Containers') {
-            steps {
-                script {
-                    sh 'docker compose up -d'
-                }
-            }
-        }
+
 
         stage('Run Unit Tests') {
             steps {
@@ -35,7 +29,14 @@ pipeline {
                 }
             }
         }
-
+        stage('Run Containers') {
+            steps {
+                script {
+                    sh 'docker compose up -d'
+                }
+            }
+        }
+    
         stage('Test API') {
             steps {
                 script {

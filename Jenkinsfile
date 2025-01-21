@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'golang:1.23'
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout Code') {
@@ -20,19 +16,18 @@ pipeline {
             }
         }
 
-        stage('Run Unit Tests') {
-            steps {
-                script {
-                    sh 'go install github.com/jstemer/go-junit-report@latest'
-                    sh 'go test ./... -v | go-junit-report > test-report.xml'
-                }
-            }
-        }
-
         stage('Run Containers') {
             steps {
                 script {
                     sh 'docker compose up -d'
+                }
+            }
+        }
+
+        stage('Run Unit Tests') {
+            steps {
+                script {
+                    sh 'docker exec bookshop-app sh -c "go test ./... -v"'
                 }
             }
         }

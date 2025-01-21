@@ -9,6 +9,7 @@ import (
 )
 
 func TestBookService_GetBookById(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name           string
 		input          uint
@@ -41,7 +42,7 @@ func TestBookService_GetBookById(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1, // Set to match the top-level BookId
 					},
 				},
@@ -68,7 +69,7 @@ func TestBookService_GetBookById(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1,
 					},
 				},
@@ -108,6 +109,7 @@ func TestBookService_GetBookById(t *testing.T) {
 }
 
 func TestBookService_GetBookByName(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name           string
 		input          string
@@ -140,7 +142,7 @@ func TestBookService_GetBookByName(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1,
 					},
 				},
@@ -167,7 +169,7 @@ func TestBookService_GetBookByName(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1,
 					},
 				},
@@ -204,6 +206,7 @@ func TestBookService_GetBookByName(t *testing.T) {
 }
 
 func TestBookService_GetAllBooks(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name           string
 		expected       []models.Book
@@ -234,7 +237,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  1,
 							Quantity: 50,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   1, // Set to match the top-level BookId
 						},
 					},
@@ -259,7 +262,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  2,
 							Quantity: 30,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   2, // Set to match the top-level BookId
 						},
 					},
@@ -284,7 +287,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  3,
 							Quantity: 40,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   3, // Set to match the top-level BookId
 						},
 					},
@@ -309,7 +312,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  4,
 							Quantity: 60,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   4, // Set to match the top-level BookId
 						},
 					},
@@ -337,7 +340,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  1,
 							Quantity: 50,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   1, // Set to match the top-level BookId
 						},
 					},
@@ -362,7 +365,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  2,
 							Quantity: 30,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   2, // Set to match the top-level BookId
 						},
 					},
@@ -387,7 +390,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  3,
 							Quantity: 40,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   3, // Set to match the top-level BookId
 						},
 					},
@@ -412,7 +415,7 @@ func TestBookService_GetAllBooks(t *testing.T) {
 						{
 							StockId:  4,
 							Quantity: 60,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   4, // Set to match the top-level BookId
 						},
 					},

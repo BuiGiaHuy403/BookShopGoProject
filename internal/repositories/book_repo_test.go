@@ -11,6 +11,7 @@ import (
 )
 
 func TestBookRepo_GetBooks(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name        string
 		expected    []models.Book
@@ -48,7 +49,7 @@ func TestBookRepo_GetBooks(t *testing.T) {
 						{
 							StockId:  1,
 							Quantity: 50,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   1, // Set to match the top-level BookId
 						},
 					},
@@ -73,7 +74,7 @@ func TestBookRepo_GetBooks(t *testing.T) {
 						{
 							StockId:  2,
 							Quantity: 30,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   2, // Set to match the top-level BookId
 						},
 					},
@@ -98,7 +99,7 @@ func TestBookRepo_GetBooks(t *testing.T) {
 						{
 							StockId:  3,
 							Quantity: 40,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   3, // Set to match the top-level BookId
 						},
 					},
@@ -123,7 +124,7 @@ func TestBookRepo_GetBooks(t *testing.T) {
 						{
 							StockId:  4,
 							Quantity: 60,
-							UpdateAt: time.Now(),
+							UpdateAt: updateTime,
 							BookId:   4, // Set to match the top-level BookId
 						},
 					},
@@ -159,6 +160,7 @@ func TestBookRepo_GetBooks(t *testing.T) {
 }
 
 func TestBookRepo_GetBookById(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name        string
 		input       uint
@@ -191,7 +193,7 @@ func TestBookRepo_GetBookById(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1, // Set to match the top-level BookId
 					},
 				},
@@ -287,6 +289,7 @@ func TestBookRepo_CreateBook(t *testing.T) {
 }
 
 func TestBookRepo_GetBookByName(t *testing.T) {
+	updateTime := time.Now()
 	testcases := []struct {
 		name        string
 		input       string
@@ -318,7 +321,7 @@ func TestBookRepo_GetBookByName(t *testing.T) {
 					{
 						StockId:  1,
 						Quantity: 50,
-						UpdateAt: time.Now(),
+						UpdateAt: updateTime,
 						BookId:   1,
 					},
 				},

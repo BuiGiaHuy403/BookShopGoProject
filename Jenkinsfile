@@ -40,6 +40,7 @@ pipeline {
             steps {
                 script {
                     sh 'curl -X GET http://localhost:8080/health'
+                    sh 'curl -X GET http://localhost:8080/api/v1/books/1'
                 }
             }
         }
@@ -47,7 +48,7 @@ pipeline {
         stage('Clean Up') {
             steps {
                 script {
-                    sh 'docker-compose down'
+                    sh 'docker compose down'
                 }
             }
         }

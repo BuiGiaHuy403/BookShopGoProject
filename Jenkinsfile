@@ -1,5 +1,9 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'golang:1.23'
+        }
+    }
 
     stages {
         stage('Checkout Code') {
@@ -19,6 +23,7 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 script {
+                    sh 'go install github.com/jstemer/go-junit-report@latest'
                     sh 'go test ./... -v | go-junit-report > test-report.xml'
                 }
             }

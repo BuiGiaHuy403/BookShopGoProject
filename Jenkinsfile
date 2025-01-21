@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
                     sh 'curl -X GET http://localhost:8080/health'
-                    sh 'curl -X GET http://localhost:8080/api/v1/books/1'
+                    sh 'curl GET http://localhost:8080/api/v1/books/1'
                 }
             }
         }

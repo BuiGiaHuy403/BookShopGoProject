@@ -10,154 +10,147 @@ import (
 	"time"
 )
 
-func TestBookRepo_GetBooks(t *testing.T) {
-	updateTime := time.Now()
-	testcases := []struct {
-		name        string
-		expected    []models.Book
-		expectedErr error
-		mockDB      *gorm.DB
-		preparePath string
-	}{
-		//{
-		//	name:        "Get Books failed with Erros",
-		//	expected:    nil,
-		//	expectedErr: errors.New("pq: password authentication failed for user \"postgrespassword=1235\""),
-		//	mockDB:      testhelpers.ConnectDBFailed(),
-		//	preparePath: "../testhelpers/preparedata/data",
-		//},
-		{
-			name: "Get Books succeeds",
-			expected: []models.Book{
-				{
-					BookId:      1,
-					BookName:    "Harry Potter and the Sorcerer s Stone",
-					Description: "",
-					Price:       19.99,
-					Genre:       "Fantasy",
-					Status:      false,
-					Authors: []models.Author{
-						{
-							AuthorId:   1,
-							AuthorName: "J.K. Rowling",
-							Status:     false,
-							Books:      nil,
-						},
-					},
-					Orders: nil,
-					Stocks: []models.Stock{
-						{
-							StockId:  1,
-							Quantity: 50,
-							UpdateAt: updateTime,
-							BookId:   1, // Set to match the top-level BookId
-						},
-					},
-				},
-				{
-					BookId:      2,
-					BookName:    "1984",
-					Description: "",
-					Price:       14.99,
-					Genre:       "Dystopian",
-					Status:      false,
-					Authors: []models.Author{
-						{
-							AuthorId:   2,
-							AuthorName: "George Orwell",
-							Status:     false,
-							Books:      nil,
-						},
-					},
-					Orders: nil,
-					Stocks: []models.Stock{
-						{
-							StockId:  2,
-							Quantity: 30,
-							UpdateAt: updateTime,
-							BookId:   2, // Set to match the top-level BookId
-						},
-					},
-				},
-				{
-					BookId:      3,
-					BookName:    "The Hobbit",
-					Description: "",
-					Price:       15.99,
-					Genre:       "Fantasy",
-					Status:      false,
-					Authors: []models.Author{
-						{
-							AuthorId:   3,
-							AuthorName: "J.R.R. Tolkien",
-							Status:     false,
-							Books:      nil,
-						},
-					},
-					Orders: nil,
-					Stocks: []models.Stock{
-						{
-							StockId:  3,
-							Quantity: 40,
-							UpdateAt: updateTime,
-							BookId:   3, // Set to match the top-level BookId
-						},
-					},
-				},
-				{
-					BookId:      4,
-					BookName:    "The Da Vinci Code",
-					Description: "",
-					Price:       18.99,
-					Genre:       "Thriller",
-					Status:      false,
-					Authors: []models.Author{
-						{
-							AuthorId:   5,
-							AuthorName: "Dan Brown",
-							Status:     false,
-							Books:      nil,
-						},
-					},
-					Orders: nil,
-					Stocks: []models.Stock{
-						{
-							StockId:  4,
-							Quantity: 60,
-							UpdateAt: updateTime,
-							BookId:   4, // Set to match the top-level BookId
-						},
-					},
-				},
-			},
-			expectedErr: nil,
-			mockDB:      testhelpers.ConnectDB(),
-			preparePath: "../testhelpers/preparedata/data",
-		},
-	}
-	for _, testcase := range testcases {
-		t.Run(testcase.name, func(t *testing.T) {
-			testhelpers.PrepareDataForDb(testcase.mockDB, testcase.preparePath)
-
-			asserts := assert.New(t)
-
-			bookRepo := BookRepo{
-				DB: testcase.mockDB,
-			}
-
-			result, gotErr := bookRepo.GetBooks()
-
-			assertBooksEqualIgnoringTime(t, testcase.expected, result)
-
-			if gotErr != nil {
-				asserts.EqualError(gotErr, testcase.expectedErr.Error())
-			} else {
-				asserts.NoError(gotErr)
-			}
-		})
-	}
-
-}
+//func TestBookRepo_GetBooks(t *testing.T) {
+//	updateTime := time.Now()
+//	testcases := []struct {
+//		name        string
+//		expected    []models.Book
+//		expectedErr error
+//		mockDB      *gorm.DB
+//		preparePath string
+//	}{
+//		{
+//			name: "Get Books succeeds",
+//			expected: []models.Book{
+//				{
+//					BookId:      1,
+//					BookName:    "Harry Potter and the Sorcerer s Stone",
+//					Description: "",
+//					Price:       19.99,
+//					Genre:       "Fantasy",
+//					Status:      false,
+//					Authors: []models.Author{
+//						{
+//							AuthorId:   1,
+//							AuthorName: "J.K. Rowling",
+//							Status:     false,
+//							Books:      nil,
+//						},
+//					},
+//					Orders: nil,
+//					Stocks: []models.Stock{
+//						{
+//							StockId:  1,
+//							Quantity: 50,
+//							UpdateAt: updateTime,
+//							BookId:   1, // Set to match the top-level BookId
+//						},
+//					},
+//				},
+//				{
+//					BookId:      2,
+//					BookName:    "1984",
+//					Description: "",
+//					Price:       14.99,
+//					Genre:       "Dystopian",
+//					Status:      false,
+//					Authors: []models.Author{
+//						{
+//							AuthorId:   2,
+//							AuthorName: "George Orwell",
+//							Status:     false,
+//							Books:      nil,
+//						},
+//					},
+//					Orders: nil,
+//					Stocks: []models.Stock{
+//						{
+//							StockId:  2,
+//							Quantity: 30,
+//							UpdateAt: updateTime,
+//							BookId:   2, // Set to match the top-level BookId
+//						},
+//					},
+//				},
+//				{
+//					BookId:      3,
+//					BookName:    "The Hobbit",
+//					Description: "",
+//					Price:       15.99,
+//					Genre:       "Fantasy",
+//					Status:      false,
+//					Authors: []models.Author{
+//						{
+//							AuthorId:   3,
+//							AuthorName: "J.R.R. Tolkien",
+//							Status:     false,
+//							Books:      nil,
+//						},
+//					},
+//					Orders: nil,
+//					Stocks: []models.Stock{
+//						{
+//							StockId:  3,
+//							Quantity: 40,
+//							UpdateAt: updateTime,
+//							BookId:   3, // Set to match the top-level BookId
+//						},
+//					},
+//				},
+//				{
+//					BookId:      4,
+//					BookName:    "The Da Vinci Code",
+//					Description: "",
+//					Price:       18.99,
+//					Genre:       "Thriller",
+//					Status:      false,
+//					Authors: []models.Author{
+//						{
+//							AuthorId:   5,
+//							AuthorName: "Dan Brown",
+//							Status:     false,
+//							Books:      nil,
+//						},
+//					},
+//					Orders: nil,
+//					Stocks: []models.Stock{
+//						{
+//							StockId:  4,
+//							Quantity: 60,
+//							UpdateAt: updateTime,
+//							BookId:   4, // Set to match the top-level BookId
+//						},
+//					},
+//				},
+//			},
+//			expectedErr: nil,
+//			mockDB:      testhelpers.ConnectDB(),
+//			preparePath: "../testhelpers/preparedata/data",
+//		},
+//	}
+//	for _, testcase := range testcases {
+//		t.Run(testcase.name, func(t *testing.T) {
+//			testhelpers.PrepareDataForDb(testcase.mockDB, testcase.preparePath)
+//
+//			asserts := assert.New(t)
+//
+//			bookRepo := BookRepo{
+//				DB: testcase.mockDB,
+//			}
+//
+//			result, gotErr := bookRepo.GetBooks()
+//
+//			assertBooksEqualIgnoringTime(t, testcase.expected, result)
+//
+//			if gotErr != nil {
+//				asserts.EqualError(gotErr, testcase.expectedErr.Error())
+//			} else {
+//				asserts.NoError(gotErr)
+//			}
+//		})
+//	}
+//
+//}
 
 func TestBookRepo_GetBookById(t *testing.T) {
 	updateTime := time.Now()

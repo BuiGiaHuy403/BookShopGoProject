@@ -30,8 +30,8 @@ pipeline {
         stage('Run Unit Tests') {
             steps {
                 script {
-                    sh 'go install github.com/jstemer/go-junit-report@latest'
-                    sh 'go test ./... -v | go-junit-report > test-report.xml'
+                    // sh 'go install github.com/jstemer/go-junit-report@latest'
+                    sh 'go test ./... -v'
                 }
             }
         }

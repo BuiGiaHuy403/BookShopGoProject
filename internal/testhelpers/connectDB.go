@@ -11,7 +11,7 @@ func ConnectDB() *gorm.DB {
 		host     = "localhost"
 		user     = "postgres"
 		password = "12345"
-		dbname   = "bookshoptest"
+		dbname   = "BookShopFinal"
 		port     = "5432"
 	)
 	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable ",

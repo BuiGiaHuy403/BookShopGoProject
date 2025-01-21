@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
-                    sh 'echo "test passed"'
+                    sh 'go test -v ./...'
                 }
             }
         }

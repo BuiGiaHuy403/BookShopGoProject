@@ -23,6 +23,9 @@ pipeline {
                 script {
                     sh 'docker compose up -d'
                 }
+                script {
+                    sh './wait-for-it.sh postgres-db:5432 --timeout=30 --strict'
+                }
             }
         }
 
@@ -38,7 +41,7 @@ pipeline {
         stage('Test API') {
             steps {
                 script {
-                    sh 'curl -X GET http://localhost:8080/health'
+                    sh 'curl -X GET http://localhost:7000/health'
                 }
             }
         }

@@ -23,9 +23,7 @@ pipeline {
                 script {
                     sh 'docker compose up -d'
                 }
-                script {
-                    sh './wait-for-it.sh postgres-db:5432 --timeout=30 --strict'
-                }
+
             }
         }
 

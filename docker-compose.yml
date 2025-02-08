@@ -15,6 +15,11 @@ services:
       - 5432:5432
     networks:
       - bookshop-network
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
   bookshop-app:
     container_name: bookshop-app
     build:

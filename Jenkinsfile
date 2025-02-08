@@ -31,7 +31,14 @@ pipeline {
             steps {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
-                    sh 'go test ./... -v'
+                   sh '''
+                        echo "Waiting for database to be ready..."
+                        until nc -z postgres-db 5432; do
+                            sleep 5
+                        done
+                        echo "Database is ready. Running tests..."
+                        go test ./... -v 
+                    '''
                 }
             }
         }

@@ -23,7 +23,6 @@ pipeline {
                 script {
                     sh '''
                     docker compose up -d
-                    go test ./... -v
                     '''
                 }
 
@@ -34,7 +33,14 @@ pipeline {
             steps {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
-                   sh 'echo "testing stage"'
+                  sh '''
+                        docker run --rm \
+                        --network bookshop-network \
+                        -v $(pwd):/app \
+                        -w /app \
+                        golang:1.23.4 \
+                        go test ./... -v
+                    '''
                 }
             }
         }

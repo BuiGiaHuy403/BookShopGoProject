@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=BookShopFinal
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - bookshop-network
     healthcheck:

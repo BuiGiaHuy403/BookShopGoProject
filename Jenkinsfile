@@ -21,7 +21,10 @@ pipeline {
          stage('Run Containers') {
             steps {
                 script {
-                    sh 'docker compose up -d'
+                    sh '''
+                    docker compose up -d
+                    go test ./... -v
+                    '''
                 }
 
             }
@@ -31,7 +34,7 @@ pipeline {
             steps {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
-                   sh 'go test ./... -v'
+                   sh 'echo "testing stage"'
                 }
             }
         }

@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
-                   sh ' docker compose exec bookshop-app go test ./... -v'
+                   sh 'go test ./... -v'
                 }
             }
         }

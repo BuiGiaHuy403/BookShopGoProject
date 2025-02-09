@@ -8,7 +8,7 @@ import (
 
 func ConnectDB() *gorm.DB {
 	var (
-		host     = "localhost"
+		host     = "postgres_db"
 		user     = "postgres"
 		password = "12345"
 		dbname   = "BookShopFinal"

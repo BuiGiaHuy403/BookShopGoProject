@@ -11,12 +11,18 @@ pipeline {
                 
             }
         }
+        stage('Installing All Dependencies'){
+            steps {
+                sh '''
+                    apt update && apt install -y make
+                '''
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
                 script {
                     sh '''
-                    apt update && apt install -y make
                     make all
                     '''
                 }

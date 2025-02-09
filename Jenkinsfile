@@ -18,6 +18,7 @@ pipeline {
                 }
             }
         }
+    }
     //      stage('Run Containers') {
     //         steps {
     //             script {
@@ -57,3 +58,4 @@ pipeline {
         }
     }
 }
+

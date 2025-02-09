@@ -14,7 +14,7 @@ pipeline {
         stage('Installing All Dependencies'){
             steps {
                 sh '''
-                    apt update && apt install -y make
+                    sudo apt update && sudo apt install -y make
                 '''
             }
         }

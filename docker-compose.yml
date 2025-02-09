@@ -20,6 +20,7 @@ services:
       interval: 5s
       retries: 5
       timeout: 5s
+
   bookshop-app:
     container_name: bookshop-app
     build:
@@ -27,6 +28,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - 7000:6969
+    networks:
+      - bookshop-network
+    depends_on:
+      - postgres-db
+  test-runner:
+    container_name: test-runner
+    image: golang:1.23.4
+    volumes:
+      - .:/app
+    command: go test ./... -v
     networks:
       - bookshop-network
     depends_on:

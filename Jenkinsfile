@@ -34,12 +34,7 @@ pipeline {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
                   sh '''
-                        docker run --rm \
-                        --network bookshop-network \
-                        -v $(pwd):/app \
-                        -w /app \
-                        golang:1.23.4 \
-                        go test ./... -v
+                        docker compose run --rm test-runner
                     '''
                 }
             }

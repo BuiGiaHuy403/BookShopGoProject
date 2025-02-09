@@ -34,7 +34,7 @@ pipeline {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
                   sh '''
-                        docker compose run --rm test-runner
+                        go test ./... -v
                     '''
                 }
             }

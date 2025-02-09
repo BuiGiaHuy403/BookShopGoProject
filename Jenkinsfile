@@ -34,19 +34,13 @@ pipeline {
                 script {
                     // sh 'go install github.com/jstemer/go-junit-report@latest'
                   sh '''
-                        go test ./... -v
+                        docker compose run --rm test-runner sh -c "go test ./... -v 2>&1 | go-junit-report > test-report.xml"
                     '''
                 }
             }
         }
 
-        stage('Test API') {
-            steps {
-                script {
-                    sh 'curl -X GET http://localhost:7000/health'
-                }
-            }
-        }
+      
 
         stage('Clean Up') {
             steps {

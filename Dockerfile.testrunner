@@ -1,0 +1,5 @@
+FROM golang:1.23.4-alpine AS builder
+
+RUN go install github.com/jstemmer/go-junit-report@latest
+
+WORKDIR /app

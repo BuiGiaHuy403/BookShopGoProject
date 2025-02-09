@@ -8,13 +8,17 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 checkout scm
+                
             }
         }
 
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'make all'
+                    sh '''
+                    apt update && apt install -y make
+                    make all
+                    '''
                 }
             }
         }

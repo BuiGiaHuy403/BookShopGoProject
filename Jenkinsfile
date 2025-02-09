@@ -14,42 +14,42 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker compose build'
+                    sh 'make all'
                 }
             }
         }
-         stage('Run Containers') {
-            steps {
-                script {
-                    sh '''
-                    docker compose up -d
-                    '''
-                }
+    //      stage('Run Containers') {
+    //         steps {
+    //             script {
+    //                 sh '''
+    //                 docker compose up -d
+    //                 '''
+    //             }
 
-            }
-        }
+    //         }
+    //     }
 
-        stage('Run Unit Tests') {
-            steps {
-                script {
-                    // sh 'go install github.com/jstemer/go-junit-report@latest'
-                  sh '''
-                        docker compose run --rm test-runner sh -c "go test ./... -v 2>&1 | go-junit-report > test-report.xml"
-                    '''
-                }
-            }
-        }
+    //     stage('Run Unit Tests') {
+    //         steps {
+    //             script {
+    //                 // sh 'go install github.com/jstemer/go-junit-report@latest'
+    //               sh '''
+    //                     docker compose run --rm test-runner sh -c "go test ./... -v 2>&1 | go-junit-report > test-report.xml"
+    //                 '''
+    //             }
+    //         }
+    //     }
 
       
 
-        stage('Clean Up') {
-            steps {
-                script {
-                    sh 'docker compose down'
-                }
-            }
-        }
-    }
+    //     stage('Clean Up') {
+    //         steps {
+    //             script {
+    //                 sh 'docker compose down'
+    //             }
+    //         }
+    //     }
+    // }
 
     post {
         always {

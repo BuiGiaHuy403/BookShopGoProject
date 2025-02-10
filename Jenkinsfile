@@ -11,56 +11,46 @@ pipeline {
                 
             }
         }
-        stage('Installing All Dependencies'){
-            steps {
-                sh '''
-                    sudo apt update && sudo apt install -y make
-                '''
-            }
-        }
+       
 
         stage('Build Docker Image') {
             steps {
                 script {
                     sh '''
-                    make all
+                    docker compose build
                     '''
                 }
             }
         }
+        
+        stage('Run Unit Tests') {
+            steps {
+                script {
+                    // sh 'go install github.com/jstemer/go-junit-report@latest'
+                  sh '''
+                        docker compose run --rm test-runner sh -c "go test ./... -v 2>&1 | go-junit-report > test-report.xml"
+                    '''
+                }
+            }
+        }
+        stage('Run Containers') {
+            steps {
+                script {
+                    sh '''
+                    docker compose up -d
+                    '''
+                }
+
+            }
+        }
+        stage('Clean Up') {
+            steps {
+                script {
+                    sh 'docker compose down'
+                }
+            }
+        }
     }
-    //      stage('Run Containers') {
-    //         steps {
-    //             script {
-    //                 sh '''
-    //                 docker compose up -d
-    //                 '''
-    //             }
-
-    //         }
-    //     }
-
-    //     stage('Run Unit Tests') {
-    //         steps {
-    //             script {
-    //                 // sh 'go install github.com/jstemer/go-junit-report@latest'
-    //               sh '''
-    //                     docker compose run --rm test-runner sh -c "go test ./... -v 2>&1 | go-junit-report > test-report.xml"
-    //                 '''
-    //             }
-    //         }
-    //     }
-
-      
-
-    //     stage('Clean Up') {
-    //         steps {
-    //             script {
-    //                 sh 'docker compose down'
-    //             }
-    //         }
-    //     }
-    // }
 
     post {
         always {
